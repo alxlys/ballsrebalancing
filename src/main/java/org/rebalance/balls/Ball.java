@@ -15,6 +15,7 @@ public class Ball {
    private String name;
    private Set<Box> eligibleBoxes;
    private Box box;
+   private Box initialBox;
 
    public Ball(Collection<Box> eligibleBoxes) {
       this.name = "ball" + ballCounter++;
@@ -26,10 +27,22 @@ public class Ball {
       this.box.addBall(this);
    }
 
+   public void setInitialBox(Box box) {
+      this.initialBox = box;
+   }
+
    public void moveToBox(Box newBox) {
       this.box.removeBall(this);
       newBox.addBall(this);
       this.box = newBox;
+   }
+
+   public Box getBox() {
+      return box;
+   }
+
+   public Box getInitialBox() {
+      return initialBox;
    }
 
    public Set<Box> getEligibleBoxes() {

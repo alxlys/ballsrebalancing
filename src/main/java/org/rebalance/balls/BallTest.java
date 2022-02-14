@@ -67,6 +67,14 @@ public class BallTest {
          System.out.println(box + " : " + box.getBallCount() + " : " + box.getBallSet());
       }
 
+      System.out.println("==============================================================================");
+
+      swapToInitialBox(balls);
+
+      for (Box box : boxes) {
+         System.out.println(box + " : " + box.getBallCount() + " : " + box.getBallSet());
+      }
+
 
    }
 
@@ -76,6 +84,7 @@ public class BallTest {
          ArrayList<Box> boxes = new ArrayList<>(ball.getEligibleBoxes());
          boxes.sort(Comparator.comparingInt(Box::getBallCount).reversed());
          ball.putToBox(boxes.get(0));
+         ball.setInitialBox(boxes.get(0));
 //         ball.putToBox(ball.getEligibleBoxes().iterator().next());
       }
    }
@@ -117,6 +126,32 @@ public class BallTest {
             ballToMove.moveToBox(newBox);
          }
       }
+
+   }
+
+   private static void swapToInitialBox(List<Ball> ballList) {
+      for (Ball ball : ballList) {
+         if (ball.getBox() == ball.getInitialBox()) {
+            continue;
+         }
+         BOXES: for (Box eligibleBox : ball.getEligibleBoxes()) {
+            if (eligibleBox == ball.getInitialBox()) {
+               //Search for ball that can be swapped
+               for (Ball ballToSwap : eligibleBox.getBallSet()) {
+                  if (ball == ballToSwap) {
+                     continue;
+                  }
+                  if (ballToSwap.getInitialBox() != eligibleBox) {
+                     Box currentBox = ball.getBox();
+                     ball.moveToBox(eligibleBox);
+                     ballToSwap.moveToBox(currentBox);
+                     break BOXES;
+                  }
+               }
+            }
+         }
+      }
+
 
    }
 
