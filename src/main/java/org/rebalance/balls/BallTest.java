@@ -1,6 +1,3 @@
-/* **********************************************************************
- * Copyright 2022 VMware, Inc. All rights reserved. VMware Confidential
- * **********************************************************************/
 package org.rebalance.balls;
 
 import java.util.ArrayList;
