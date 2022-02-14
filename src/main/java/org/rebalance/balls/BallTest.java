@@ -141,7 +141,8 @@ public class BallTest {
                   if (ball == ballToSwap) {
                      continue;
                   }
-                  if (ballToSwap.getInitialBox() != eligibleBox) {
+                  if (ballToSwap.getInitialBox() != eligibleBox &&
+                        ballToSwap.getEligibleBoxes().contains(ball.getBox())) {
                      Box currentBox = ball.getBox();
                      ball.moveToBox(eligibleBox);
                      ballToSwap.moveToBox(currentBox);
